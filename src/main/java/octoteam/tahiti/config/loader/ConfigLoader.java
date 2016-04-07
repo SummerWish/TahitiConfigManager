@@ -5,13 +5,15 @@ import java.io.InputStream;
 /**
  * TODO
  */
-public interface ConfigLoader {
+public abstract class ConfigLoader {
 
     /**
+     * TODO
+     *
      * @param streamIn
      * @param <T>
      * @return
      */
-    public <T> T loadToBean(InputStream streamIn);
+    public abstract <T> T loadToBean(InputStream streamIn);
 
 }

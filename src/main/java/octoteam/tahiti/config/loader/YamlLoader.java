@@ -5,7 +5,7 @@ import java.io.InputStream;
 /**
  * TODO
  */
-public class Ini implements ConfigLoader {
+public class YamlLoader extends ConfigLoader {
 
     public <T> T loadToBean(InputStream streamIn) {
         return null;
