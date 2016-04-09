@@ -29,13 +29,14 @@ public class ConfigManager {
      */
     public ConfigManager(ConfigLoader loader, String... pathCandidates) throws IOException {
         InputStream in = null;
-        for (String path : pathCandidates)
+        for (String path : pathCandidates) {
             try {
                 in = new FileInputStream(path);
             } catch (IOException ignore) {
             }
+        }
         if (in == null) {
-            throw new IOException("None of the specified file is found");
+            throw new IOException("None of the specified config is found");
         }
         this.streamIn = in;
         this.loader = loader;
