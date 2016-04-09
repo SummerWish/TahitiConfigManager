@@ -71,7 +71,7 @@
 <dependency>
     <groupId>org.yaml</groupId>
     <artifactId>snakeyaml</artifactId>
-    <version>1.11</version>
+    <version>1.17</version>
 </dependency>
 ```
 
@@ -81,7 +81,7 @@
 <dependency>
     <groupId>org.ini4j</groupId>
     <artifactId>ini4j</artifactId>
-    <version>0.4.0</version>
+    <version>0.5.4</version>
 </dependency>
 ```
 
@@ -93,9 +93,9 @@
 
 - 对于 JSON 格式的配置文件：[fastjson](http://central.maven.org/maven2/com/alibaba/fastjson/1.2.8/fastjson-1.2.8.jar)
 
-- 对于 YAML 格式的配置文件：[snakeyaml](http://central.maven.org/maven2/org/yaml/snakeyaml/1.11/snakeyaml-1.11.jar)
+- 对于 YAML 格式的配置文件：[snakeyaml](http://central.maven.org/maven2/org/yaml/snakeyaml/1.17/snakeyaml-1.17.jar)
 
-- 对于 ini 格式的配置文件：[ini4j](http://central.maven.org/maven2/org/ini4j/ini4j/0.4.0/ini4j-0.4.0.jar)
+- 对于 ini 格式的配置文件：[ini4j](http://central.maven.org/maven2/org/ini4j/ini4j/0.5.4/ini4j-0.5.4.jar)
 
 ## 示例
 

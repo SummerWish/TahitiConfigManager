@@ -18,13 +18,13 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>1.11</version>
+            <version>1.17</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.ini4j</groupId>
             <artifactId>ini4j</artifactId>
-            <version>0.4.0</version>
+            <version>0.5.4</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -34,7 +34,7 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
-    
+
     <distributionManagement>
         <snapshotRepository>
             <id>archiva.snapshots</id>
