@@ -32,6 +32,7 @@ public class ConfigManager {
         for (String path : pathCandidates) {
             try {
                 in = new FileInputStream(path);
+                break;
             } catch (IOException ignore) {
             }
         }

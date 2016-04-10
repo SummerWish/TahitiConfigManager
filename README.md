@@ -12,7 +12,7 @@
 
 - 支持序列化到 Java Bean
 
-- 支持多种配置格式，如 YAML, JSON, ini
+- 支持多种配置格式，如 YAML, JSON
 
 ## 下载
 
@@ -72,16 +72,6 @@
 </dependency>
 ```
 
-对于 ini 格式的配置文件：
-
-```xml
-<dependency>
-    <groupId>org.ini4j</groupId>
-    <artifactId>ini4j</artifactId>
-    <version>0.5.4</version>
-</dependency>
-```
-
 ### 手工下载
 
 - [tahiti-config](http://sse.tongji.edu.cn/tahiti/nexus/service/local/repositories/public/content/octoteam/tahiti/tahiti-config/1.0-SNAPSHOT/tahiti-config-1.0-20160409.184430-1.jar)
@@ -91,8 +81,6 @@
 - 对于 JSON 格式的配置文件：[fastjson](http://central.maven.org/maven2/com/alibaba/fastjson/1.2.8/fastjson-1.2.8.jar)
 
 - 对于 YAML 格式的配置文件：[snakeyaml](http://central.maven.org/maven2/org/yaml/snakeyaml/1.17/snakeyaml-1.17.jar)
-
-- 对于 ini 格式的配置文件：[ini4j](http://central.maven.org/maven2/org/ini4j/ini4j/0.5.4/ini4j-0.5.4.jar)
 
 ## 示例
 
