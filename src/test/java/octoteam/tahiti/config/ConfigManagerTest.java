@@ -2,7 +2,10 @@ package octoteam.tahiti.config;
 
 import org.junit.Test;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 

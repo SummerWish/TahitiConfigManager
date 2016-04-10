@@ -74,7 +74,7 @@
 
 ### 手工下载
 
-- [tahiti-config](http://sse.tongji.edu.cn/tahiti/nexus/service/local/repositories/public/content/octoteam/tahiti/tahiti-config/1.0-SNAPSHOT/tahiti-config-1.0-20160409.184430-1.jar)
+- [tahiti-config](http://sse.tongji.edu.cn/tahiti/nexus/service/local/repositories/public/content/octoteam/tahiti/tahiti-config/1.0-SNAPSHOT/tahiti-config-1.0-20160410.135849-2.jar)
 
 除了这个库本身以外，视您配置文件的格式，您还需要分别添加各个序列化库的依赖：
 

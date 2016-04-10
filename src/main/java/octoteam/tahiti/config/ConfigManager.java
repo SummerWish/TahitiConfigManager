@@ -7,25 +7,26 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * define the manager to get the configurationfile and loaded to be java bean
+ * 配置管理
  */
 public class ConfigManager {
 
     /**
-     * the inputstream of the file
+     * 有效的输入流
      */
     private InputStream streamIn;
 
     /**
-     * the abstract class stated in the folder ConfigLoader
+     * 配置加载器
      */
     private ConfigLoader loader;
 
     /**
-     * set the inputstream and the loader written in the file routed by pathCandidates
+     * 给定配置加载器, 并给定配置的一个或多个候选路径
      *
-     * @param loader
-     * @param pathCandidates
+     * @param loader         配置加载器
+     * @param pathCandidates 候选路径
+     * @throws IOException 若所有候选路径都无法获得配置, 则抛出此异常
      */
     public ConfigManager(ConfigLoader loader, String... pathCandidates) throws IOException {
         InputStream in = null;
@@ -44,11 +45,11 @@ public class ConfigManager {
     }
 
     /**
-     * any kind type of configuration file loaded to be javabean
+     * 从候选路径中加载配置到 Java Bean
      *
-     * @param clazz
-     * @param <T>
-     * @return
+     * @param clazz Java Bean 的类
+     * @param <T>   任意 Java Bean
+     * @return Bean
      */
     public <T> T loadToBean(Class<T> clazz) {
         return loader.loadToBean(this.streamIn, clazz);
