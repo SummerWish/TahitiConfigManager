@@ -30,14 +30,11 @@
     
     <repositories>
         <repository>
-            <id>tahiti</id>
-            <url>http://10.60.40.241:8888/repository/internal/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
+            <id>tahiti-nexus-snapshots</id>
+            <name>Tahiti NEXUS</name>
+            <url>http://sse.tongji.edu.cn/tahiti/nexus/content/groups/public</url>
+            <releases><enabled>false</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
         </repository>
     </repositories>
 
@@ -87,7 +84,7 @@
 
 ### 手工下载
 
-- [tahiti-config](http://10.60.40.241:8888/repository/snapshots/octoteam/tahiti/tahiti-config/1.0-SNAPSHOT/tahiti-config-1.0-20160409.155109-1.jar)
+- [tahiti-config](http://sse.tongji.edu.cn/tahiti/nexus/service/local/repositories/public/content/octoteam/tahiti/tahiti-config/1.0-SNAPSHOT/tahiti-config-1.0-20160409.184430-1.jar)
 
 除了这个库本身以外，视您配置文件的格式，您还需要分别添加各个序列化库的依赖：
 
