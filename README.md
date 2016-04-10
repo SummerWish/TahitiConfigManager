@@ -86,8 +86,95 @@
 
 ### 从多个位置依次尝试加载 JSON 格式配置文件
 
-TODO
+对于一个发行的应用程序来说，一般有一个程序自带的默认配置文件，和一个可选的用户覆盖配置文件。TahitiConfigManager 可以很轻松地处理这种情况。
+
+该示例演示从两个位置加载配置文件：
+
+- 当前目录下 config.json（用户配置文件）
+- `resources` 目录下 config.json（应用程序自带配置文件）
+
+当用户配置文件存在时，将从用户配置文件加载；当它不存在时，才会从应用程序配置文件加载。
+
+配置文件样例 `resources/config.json`:
+
+```json
+{
+    "host": "127.0.0.1",
+    "port": 3399
+}
+```
+
+首先定义配置文件对应的 Java Bean，这里取名为 `ConfigBean`。
+
+`ConfigBean.java`:
+
+```java
+public class ConfigBean {
+
+    public String host;
+    
+    public int port;
+    
+    public String getHost() {
+        return host;
+    }
+    
+    public void setHost(String host) {
+        this.host = host;
+    }
+    
+    public int getPort() {
+        return port;
+    }
+    
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+}
+```
+
+> 提示：在 Intellij IDEA 下可以利用 generator 自动生成 getter 和 setter。
+
+接下来，使用 `JsonLoader` 和 `ConfigManager` 加载配置：
+
+```java
+ConfigManager configManager = new ConfigManager(
+    new JsonLoader(),  // 指定配置文件加载器，这里是 JSON 格式因此使用 JsonLoader
+    "./config.json",   // 用户配置文件路径
+    Paths.get(this.getClass().getResource("/config.json").toURI()).toString()  // 默认配置文件路径
+
+ConfigBean config = configManager.loadToBean(ConfigBean.class);
+
+// 接下来使用面向对象的方式直接访问配置
+
+config.getHost();  // 127.0.0.1
+config.getPort();  // 3399
+```
+
+当然，您也可以只传一个配置文件路径，或者传 n 个配置文件路径，`ConfigManager` 将总是从第一个路径开始尝试加载配置文件，直到某个加载成功后停止。
 
 ### 加载 YAML 格式配置文件
 
-TODO
+YAML 是另一种常见的配置文件格式，由于书写比 JSON 方便简洁因而被大量使用。
+
+`./config.yaml`:
+
+```yaml
+server: 127.0.0.1
+port: 3399
+```
+
+加载配置：
+
+```java
+ConfigManager configManager = new ConfigManager(
+    new YamlLoader(),
+    "./config.json"
+);
+
+ConfigBean config = configManager.loadToBean(ConfigBean.class);
+
+config.getHost();  // 127.0.0.1
+config.getPort();  // 3399
+```
