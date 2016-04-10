@@ -7,22 +7,22 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * TODO
+ * define the manager to get the configurationfile and loaded to be java bean
  */
 public class ConfigManager {
 
     /**
-     * TODO
+     * the inputstream of the file
      */
     private InputStream streamIn;
 
     /**
-     * TODO
+     * the abstract class stated in the folder ConfigLoader
      */
     private ConfigLoader loader;
 
     /**
-     * TODO
+     * set the inputstream and the loader written in the file routed by pathCandidates
      *
      * @param loader
      * @param pathCandidates
@@ -44,7 +44,7 @@ public class ConfigManager {
     }
 
     /**
-     * TODO
+     * any kind type of configuration file loaded to be javabean
      *
      * @param clazz
      * @param <T>
