@@ -5,15 +5,15 @@ import com.alibaba.fastjson.JSON;
 import java.io.InputStream;
 
 /**
- * TODO
+ * loader of  the configration file --JSON
  */
 public class JsonLoader extends ConfigLoader {
 
     /**
-     * TODO
-     *
+     * 
+     *conver the input into string
      * @param is
-     * @return
+     * @return s--string type of the file
      */
     private String convertStreamToString(InputStream is) {
         java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
@@ -21,6 +21,7 @@ public class JsonLoader extends ConfigLoader {
     }
 
     /**
+     * using the parseObject method to return a class type of T--into java bean
      * {@inheritDoc}
      */
     public <T> T loadToBean(InputStream streamIn, Class<T> clazz) {
