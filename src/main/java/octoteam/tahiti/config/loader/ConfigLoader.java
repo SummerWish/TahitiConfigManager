@@ -3,12 +3,12 @@ package octoteam.tahiti.config.loader;
 import java.io.InputStream;
 
 /**
- * TODO
+ * define package loader
  */
 public abstract class ConfigLoader {
 
     /**
-     * TODO
+     * state an abstract class to be implemented
      *
      * @param streamIn
      * @param clazz
