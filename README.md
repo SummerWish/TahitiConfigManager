@@ -145,6 +145,7 @@ ConfigManager configManager = new ConfigManager(
     new JsonLoader(),  // 指定配置文件加载器，这里是 JSON 格式因此使用 JsonLoader
     "./config.json",   // 用户配置文件路径
     Paths.get(this.getClass().getResource("/config.json").toURI()).toString()  // 默认配置文件路径
+);
 
 ConfigBean config = configManager.loadToBean(ConfigBean.class);
 
