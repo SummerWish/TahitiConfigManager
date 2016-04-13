@@ -4,6 +4,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/SummerWish/TahitiConfigManager/badge.svg?branch=master)](https://coveralls.io/github/SummerWish/TahitiConfigManager?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/57091970fcd19a00415b1011/badge.svg)](https://www.versioneye.com/user/projects/57091970fcd19a00415b1011)
 
+[Documentation](http://summerwish.github.io/TahitiConfigManager/)
+
 一个简单的配置管理框架。
 
 - 支持动态加载配置
