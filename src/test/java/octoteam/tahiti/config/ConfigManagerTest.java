@@ -1,5 +1,7 @@
 package octoteam.tahiti.config;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.junit.Test;
 
 import java.io.BufferedWriter;
@@ -8,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class ConfigManagerTest {
 
@@ -19,7 +22,7 @@ public class ConfigManagerTest {
         bw.close();
 
         ConfigManager manager = new ConfigManager(
-                new DirectReadConfigLoader(),
+                new DirectAdapter(),
                 config.getPath()
         );
         assertEquals("foo", manager.loadToBean(String.class));
@@ -35,7 +38,7 @@ public class ConfigManagerTest {
         bw.close();
 
         ConfigManager manager = new ConfigManager(
-                new DirectReadConfigLoader(),
+                new DirectAdapter(),
                 "/a/file/that/does/not/exist",
                 config.getPath()
         );
@@ -61,7 +64,7 @@ public class ConfigManagerTest {
         }
 
         ConfigManager manager = new ConfigManager(
-                new DirectReadConfigLoader(),
+                new DirectAdapter(),
                 config1.getPath(),
                 config2.getPath()
         );
@@ -72,11 +75,60 @@ public class ConfigManagerTest {
     }
 
     @Test(expected = IOException.class)
-    public void testException() throws IOException {
-        new ConfigManager(
-                new DirectReadConfigLoader(),
+    public void testLoadException() throws IOException {
+        ConfigManager manager = new ConfigManager(
+                new DirectAdapter(),
                 "/a/file/that/does/not/exist"
         );
+        manager.loadToBean(String.class); // throw
     }
+
+    @Test
+    public void testWriteSingleConfig() throws IOException {
+        String tempFile = FilenameUtils.concat(System.getProperty("java.io.tmpdir"), Double.toString(System.nanoTime()) + ".txt");
+
+        ConfigManager manager = new ConfigManager(
+                new DirectAdapter(),
+                tempFile
+        );
+        manager.writeToFirstCandidate("foo");
+
+        File file = new File(tempFile);
+        assertEquals("foo", FileUtils.readFileToString(file));
+
+        file.delete();
+    }
+
+    @Test
+    public void testWriteFallbackConfig() throws IOException {
+        String tempFile1 = FilenameUtils.concat(System.getProperty("java.io.tmpdir"), Double.toString(System.nanoTime()) + "1.txt");
+        String tempFile2 = FilenameUtils.concat(System.getProperty("java.io.tmpdir"), Double.toString(System.nanoTime()) + "2.txt");
+
+        ConfigManager manager = new ConfigManager(
+                new DirectAdapter(),
+                "/dev/urandom/a/place/not/exist",
+                tempFile1,
+                tempFile2
+        );
+        manager.writeToFirstCandidate("foo");
+
+        File file1 = new File(tempFile1);
+        assertEquals("foo", FileUtils.readFileToString(file1));
+
+        File file2 = new File(tempFile2);
+        assertFalse(file2.exists());
+
+        file1.delete();
+    }
+
+    @Test(expected = IOException.class)
+    public void testWriteException() throws IOException {
+        ConfigManager manager = new ConfigManager(
+                new DirectAdapter(),
+                "/dev/urandom/a/place/not/exist"
+        );
+        manager.writeToFirstCandidate("foo"); // throw
+    }
+
 
 }

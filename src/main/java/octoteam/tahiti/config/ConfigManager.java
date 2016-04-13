@@ -1,10 +1,8 @@
 package octoteam.tahiti.config;
 
-import octoteam.tahiti.config.loader.ConfigLoader;
+import octoteam.tahiti.config.loader.ConfigAdapter;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 /**
  * 配置管理
@@ -12,23 +10,35 @@ import java.io.InputStream;
 public class ConfigManager {
 
     /**
-     * 有效的输入流
-     */
-    private InputStream streamIn;
-
-    /**
      * 配置加载器
      */
-    private ConfigLoader loader;
+    private ConfigAdapter adapter;
+
+    /**
+     * 候选配置
+     */
+    private String[] pathCandidates;
 
     /**
      * 给定配置加载器, 并给定配置的一个或多个候选路径
      *
-     * @param loader         配置加载器
+     * @param adapter        配置加载器
      * @param pathCandidates 候选路径
+     */
+    public ConfigManager(ConfigAdapter adapter, String... pathCandidates) {
+        this.pathCandidates = pathCandidates;
+        this.adapter = adapter;
+    }
+
+    /**
+     * 从候选路径中加载配置到 Java Bean
+     *
+     * @param clazz Java Bean 的类
+     * @param <T>   任意 Java Bean
+     * @return Bean
      * @throws IOException 若所有候选路径都无法获得配置, 则抛出此异常
      */
-    public ConfigManager(ConfigLoader loader, String... pathCandidates) throws IOException {
+    public <T> T loadToBean(Class<T> clazz) throws IOException {
         InputStream in = null;
         for (String path : pathCandidates) {
             try {
@@ -40,19 +50,29 @@ public class ConfigManager {
         if (in == null) {
             throw new IOException("None of the specified config is found");
         }
-        this.streamIn = in;
-        this.loader = loader;
+        return adapter.loadToBean(in, clazz);
     }
 
     /**
-     * 从候选路径中加载配置到 Java Bean
+     * 向候选路径中第一个可以写入的路径写入配置
      *
-     * @param clazz Java Bean 的类
-     * @param <T>   任意 Java Bean
-     * @return Bean
+     * @param data Java Bean
+     * @throws IOException 若所有候选路径都无法写入配置, 则抛出此异常
      */
-    public <T> T loadToBean(Class<T> clazz) {
-        return loader.loadToBean(this.streamIn, clazz);
+    public void writeToFirstCandidate(Object data) throws IOException {
+        for (String path : pathCandidates) {
+            try {
+                File f = new File(path);
+                f.getParentFile().mkdirs();
+                f.createNewFile();
+                FileOutputStream out = new FileOutputStream(path);
+                adapter.writeToStream(data, out);
+                out.close();
+                return;
+            } catch (IOException ignore) {
+            }
+        }
+        throw new IOException("None of the specified config path can be written");
     }
 
 }

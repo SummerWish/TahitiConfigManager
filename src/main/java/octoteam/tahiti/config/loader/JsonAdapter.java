@@ -2,12 +2,14 @@ package octoteam.tahiti.config.loader;
 
 import com.alibaba.fastjson.JSON;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * JSON 配置加载器
  */
-public class JsonLoader extends ConfigLoader {
+public class JsonAdapter extends ConfigAdapter {
 
     /**
      * 从输入流读取所有内容
@@ -27,6 +29,14 @@ public class JsonLoader extends ConfigLoader {
         String content;
         content = convertStreamToString(streamIn);
         return JSON.parseObject(content, clazz);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void writeToStream(Object data, OutputStream streamOut) throws IOException {
+        String content = JSON.toJSONString(data);
+        streamOut.write(content.getBytes());
     }
 
 }

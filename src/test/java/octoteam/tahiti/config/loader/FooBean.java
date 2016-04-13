@@ -4,6 +4,13 @@ class FooBean {
 
     public String bar;
 
+    public FooBean() {
+    }
+
+    public FooBean(String bar) {
+        this.bar = bar;
+    }
+
     public String getBar() {
         return bar;
     }

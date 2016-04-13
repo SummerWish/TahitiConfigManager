@@ -76,7 +76,7 @@
 
 ### 手工下载
 
-- [tahiti-config](http://sse.tongji.edu.cn/tahiti/nexus/service/local/repositories/public/content/octoteam/tahiti/tahiti-config/1.0-SNAPSHOT/tahiti-config-1.0-20160410.135849-2.jar)
+- [tahiti-config](http://sse.tongji.edu.cn/tahiti/nexus/service/local/repositories/public/content/octoteam/tahiti/tahiti-config/1.0-SNAPSHOT/tahiti-config-1.0-20160413.122350-3.jar)
 
 除了这个库本身以外，视您配置文件的格式，您还需要分别添加各个序列化库的依赖：
 
@@ -138,11 +138,11 @@ public class ConfigBean {
 
 > 提示：在 Intellij IDEA 下可以利用 generator 自动生成 getter 和 setter。
 
-接下来，使用 `JsonLoader` 和 `ConfigManager` 加载配置：
+接下来，使用 `JsonAdapter` 和 `ConfigManager` 加载配置：
 
 ```java
 ConfigManager configManager = new ConfigManager(
-    new JsonLoader(),  // 指定配置文件加载器，这里是 JSON 格式因此使用 JsonLoader
+    new JsonAdapter(),  // 指定配置文件加载器，这里是 JSON 格式因此使用 JsonAdapter
     "./config.json",   // 用户配置文件路径
     Paths.get(this.getClass().getResource("/config.json").toURI()).toString()  // 默认配置文件路径
 );
@@ -155,7 +155,7 @@ config.getHost();  // 127.0.0.1
 config.getPort();  // 3399
 ```
 
-当然，您也可以只传一个配置文件路径，或者传 n 个配置文件路径，`ConfigManager` 将总是从第一个路径开始尝试加载配置文件，直到某个加载成功后停止。
+当然，您也可以只传一个配置文件路径，或者传 n 个配置文件路径，`ConfigManager` 将总是从第一个路径开始尝试加载配置文件，直到某个加载成功后停止。若从所有路径都无法加载配置，将抛出 `IOException`。
 
 ### 加载 YAML 格式配置文件
 
@@ -172,7 +172,7 @@ port: 3399
 
 ```java
 ConfigManager configManager = new ConfigManager(
-    new YamlLoader(),
+    new YamlAdapter(),
     "./config.json"
 );
 
@@ -180,4 +180,12 @@ ConfigBean config = configManager.loadToBean(ConfigBean.class);
 
 config.getHost();  // 127.0.0.1
 config.getPort();  // 3399
+```
+
+### 写入配置
+
+TahitiConfigManager 支持写入配置，调用 `writeToFirstCandidate` 时将从给定的第一个路径开始依次尝试写入配置，直到写入成功。若没有一个路径可以成功写入配置，则抛出 `IOException`。
+
+```java
+configManager.writeToFirstCandidate(config);
 ```
