@@ -22,10 +22,10 @@ public abstract class ConfigAdapter {
     /**
      * 将一个配置写入到输出流
      *
-     * @param data      配置对象
+     * @param bean      配置对象
      * @param streamOut 输出流
      * @throws IOException
      */
-    public abstract void writeToStream(Object data, OutputStream streamOut) throws IOException;
+    public abstract void writeToStream(Object bean, OutputStream streamOut) throws IOException;
 
 }

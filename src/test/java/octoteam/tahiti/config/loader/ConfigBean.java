@@ -1,6 +1,6 @@
 package octoteam.tahiti.config.loader;
 
-class ConfigBean {
+public class ConfigBean {
 
     public FooBean foo;
 

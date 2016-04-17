@@ -14,7 +14,7 @@
 
 - 支持序列化到 Java Bean
 
-- 支持多种配置格式，如 YAML, JSON
+- 支持多种配置格式，如 YAML, JSON, Java Properties
 
 ## 下载
 
@@ -74,15 +74,27 @@
 </dependency>
 ```
 
+对于 Java Property 格式的配置文件：
+
+```xml
+<dependency>
+    <groupId>commons-beanutils</groupId>
+    <artifactId>commons-beanutils</artifactId>
+    <version>1.7.0</version>
+</dependency>
+```
+
 ### 手工下载
 
-- [tahiti-config](http://sse.tongji.edu.cn/tahiti/nexus/service/local/repositories/public/content/octoteam/tahiti/tahiti-config/1.0-SNAPSHOT/tahiti-config-1.0-20160413.122350-3.jar)
+- [tahiti-config](http://sse.tongji.edu.cn/tahiti/nexus/service/local/repositories/public/content/octoteam/tahiti/tahiti-config/1.0-SNAPSHOT/tahiti-config-1.0-20160417.143532-4.jar)
 
 除了这个库本身以外，视您配置文件的格式，您还需要分别添加各个序列化库的依赖：
 
 - 对于 JSON 格式的配置文件：[fastjson](http://central.maven.org/maven2/com/alibaba/fastjson/1.2.8/fastjson-1.2.8.jar)
 
 - 对于 YAML 格式的配置文件：[snakeyaml](http://central.maven.org/maven2/org/yaml/snakeyaml/1.17/snakeyaml-1.17.jar)
+
+- 对于 Java Property 格式的配置文件：[commons-beanutils](http://central.maven.org/maven2/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar)
 
 ## 示例
 
@@ -174,6 +186,29 @@ port: 3399
 ConfigManager configManager = new ConfigManager(
     new YamlAdapter(),
     "./config.json"
+);
+
+ConfigBean config = configManager.loadToBean(ConfigBean.class);
+
+config.getHost();  // 127.0.0.1
+config.getPort();  // 3399
+```
+
+### 加载 Java Properties 格式配置文件
+
+`./config.conf`
+
+```ini
+server=127.0.0.1
+port=3389
+```
+
+加载配置：
+
+```java
+ConfigManager configManager = new ConfigManager(
+    new PropertyAdapter(),
+    "./config.conf"
 );
 
 ConfigBean config = configManager.loadToBean(ConfigBean.class);

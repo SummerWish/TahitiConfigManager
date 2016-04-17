@@ -1,6 +1,6 @@
 package octoteam.tahiti.config.loader;
 
-class FooBean {
+public class FooBean {
 
     public String bar;
 
@@ -18,4 +18,5 @@ class FooBean {
     public void setBar(String bar) {
         this.bar = bar;
     }
+
 }

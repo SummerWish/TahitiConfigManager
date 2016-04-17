@@ -24,17 +24,17 @@ public class YamlAdapter extends ConfigAdapter {
     /**
      * {@inheritDoc}
      */
-    public void writeToStream(Object data, OutputStream streamOut) {
+    public void writeToStream(Object bean, OutputStream streamOut) {
         DumperOptions options = new DumperOptions();
         options.setExplicitEnd(false);
         options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
         options.setIndent(2);
 
         Representer representer = new Representer();
-        representer.addClassTag(data.getClass(), Tag.MAP);
+        representer.addClassTag(bean.getClass(), Tag.MAP);
 
         Yaml yaml = new Yaml(representer, options);
-        yaml.dump(data, new OutputStreamWriter(streamOut));
+        yaml.dump(bean, new OutputStreamWriter(streamOut));
     }
 
 }

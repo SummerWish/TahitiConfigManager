@@ -34,8 +34,8 @@ public class JsonAdapter extends ConfigAdapter {
     /**
      * {@inheritDoc}
      */
-    public void writeToStream(Object data, OutputStream streamOut) throws IOException {
-        String content = JSON.toJSONString(data);
+    public void writeToStream(Object bean, OutputStream streamOut) throws IOException {
+        String content = JSON.toJSONString(bean);
         streamOut.write(content.getBytes());
     }
 

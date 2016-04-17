@@ -20,8 +20,8 @@ class DirectAdapter extends ConfigAdapter {
         return (T) convertStreamToString(streamIn);
     }
 
-    public void writeToStream(Object data, OutputStream streamOut) throws IOException {
-        streamOut.write(data.toString().getBytes());
+    public void writeToStream(Object bean, OutputStream streamOut) throws IOException {
+        streamOut.write(bean.toString().getBytes());
     }
 
 }
